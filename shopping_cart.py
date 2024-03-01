@@ -11,6 +11,15 @@ import csv
 import random
 import time
 
+def is_pos_float(to_check_string):
+    try:
+        if float(to_check_string) >= 0.01:
+            return True
+    except ValueError:
+        return False
+    return False
+
+
 def read_csv(csv_path):
     with open(csv_path, 'r') as file:
         csv_reader = csv.DictReader(file)
@@ -61,7 +70,7 @@ def shop():
         elif action == 'add':
             item_value, item_quantity = "notFloat", "notDigit"
             item_name = input("What item would you like? ").title()
-            while not all(x.isdigit() or x == "." for x in item_value):
+            while not is_pos_float(item_value):
                 item_value = input("How much does that cost? ")
             while not all(x.isdigit() for x in item_quantity):
                 item_quantity = input("How many would you like? ")
@@ -84,7 +93,7 @@ def shop():
                 if is_full:
                     print(f"An elderly woman scowls as you return dozens of frozen items to their shelves")
                     time.sleep(0.5)
-                    print(f"Your fingerprints cover the produce aile")
+                    print(f"Your fingerprints cover the produce aisle")
                     time.sleep(0.5)
         elif action == 'mystery':
             print('A staff member shops for you!')
@@ -108,7 +117,7 @@ def shop():
     if len(cart) > 0:
         print(f"Thank you for shopping at VeggieMart. \nPlease come again.")
     else:
-        print(f"The security guard stares you as you leave empty handed")
+        print(f"The security guard stares as you leave empty handed")
 
 if __name__ == "__main__":
     shop()
