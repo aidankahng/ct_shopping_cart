@@ -73,30 +73,42 @@ def shop():
         elif action == 'cart':
             display_cart(cart)
         elif action == 'clear':
-            cart = {}
-            print(f"Cart has been emptied.")
+            is_full = False
+            if len(cart) > 10:
+                is_full = True
+                print(f"You have a lot of items in your cart\nIt seems as though someone had lovingly chosen them with you\nAre you sure you want to empty your whole cart?")
+            confirm_clear = input("Type clear again to confirm (this is not reversible): ").lower()
+            if confirm_clear == 'clear':
+                cart = {}    
+                print(f"Cart has been emptied.")
+                if is_full:
+                    print(f"An elderly woman scowls as you return dozens of frozen items to their shelves")
+                    time.sleep(0.5)
+                    print(f"Your fingerprints cover the produce aile")
+                    time.sleep(0.5)
         elif action == 'mystery':
             print('A staff member shops for you!')
-            time.sleep(0.5)
+            time.sleep(0.1)
             print('Filling up produce...')
-            time.sleep(0.5)
+            time.sleep(0.1)
             print('Filling up proteins...')
-            time.sleep(0.5)
+            time.sleep(0.1)
             print('Stockpiling for your bunker...')
-            time.sleep(0.5)
+            time.sleep(0.1)
             print('Feeding your neighbors...')
-            time.sleep(1.5)
+            time.sleep(0.5)
             mystery_items = read_csv("./store.csv")
             add_to_cart(cart, mystery_items)
             print('The staff member smiles as they return with your cart')
-            time.sleep(1)
+            time.sleep(0.5)
             print('Your cart is now overflowing with items')
-            time.sleep(2.5)
             input("Press enter to see your new cart")
             display_cart(cart)
     display_cart(cart)
-    print(f"Thank you for shopping at VeggieMart. \nPlease come again.")
-
+    if len(cart) > 0:
+        print(f"Thank you for shopping at VeggieMart. \nPlease come again.")
+    else:
+        print(f"The security guard stares you as you leave empty handed")
 
 if __name__ == "__main__":
     shop()
