@@ -77,8 +77,12 @@ def shop():
             item = {item_name:{"value":float(item_value), "quantity":int(item_quantity)}}
             add_to_cart(cart, item)
         elif action == 'remove':
-            remove_key = input("What item would you like to remove? ").title()
-            remove_from_cart(cart, remove_key)
+            if cart != {}:
+                display_cart(cart)
+                remove_key = input("What item would you like to remove? ").title()
+                remove_from_cart(cart, remove_key)
+            else:
+                print("The cart is currently empty.")
         elif action == 'cart':
             display_cart(cart)
         elif action == 'clear':
